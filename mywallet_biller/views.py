@@ -12,18 +12,33 @@ class BillerDashboard(View):
 	'''
 		This will be use for display Biller Dashboard
 	'''
-	template_path = '/templates/user_dashboard.html'
+	template_path = 'user_dashboard.html'
 
-	def dispatch(self, *args, **kwargs):
-		return super(BillerDashboard, self).dispatch(*args, **kwargs)
+	def dispatch(self, request, *args, **kwargs):
+		return super(BillerDashboard, self).dispatch(request, *args, **kwargs)
 
-	def get(self, request):
+	def get(self, request, *args, **kwargs):
 		try:
 			biller_list = MyWalletBiller.objects.all()
 		except Exception as e:
 			print e
-		# render(request, self.template_path, {})
-		return HttpResponse("Hi this is Biller Dashboard Page")
+
+		return render(request, self.template_path,{'data':"Hello"} )
+		# return HttpResponse("Hi this is Biller Dashboard Page")
+
+	def post(self, request):
+		return True
+
+class index(View):
+	template_path = 'base.html'
+
+	def dispatch(self, request, *args, **kwargs):
+		return super(index, self).dispatch(request, *args, **kwargs)
+
+	def get(self, request, *args, **kwargs):
+		return render(request, self.template_path, {})
+
+	# return HttpResponse("Hi this is Biller Dashboard Page")
 
 	def post(self, request):
 		return True
